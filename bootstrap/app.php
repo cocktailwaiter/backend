@@ -81,6 +81,8 @@ $app->singleton(
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+$app->register(Appzcoder\LumenRoutesList\RoutesCommandServiceProvider::class);
+$app->register(Vluzrmos\Tinker\TinkerServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -98,7 +100,5 @@ $app->router->group([
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });
-
-$app->register(Appzcoder\LumenRoutesList\RoutesCommandServiceProvider::class);
 
 return $app;
