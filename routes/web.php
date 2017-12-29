@@ -19,6 +19,7 @@ $router->group(['prefix' => 'api/'.env('API_VERSION', 'v0')], function($router)
 {
     resource('post', 'PostController', $router);
     resource('wannabe', 'WannabeController', $router);
+    resource('cocktail', 'CocktailController', $router);
 });
 
 

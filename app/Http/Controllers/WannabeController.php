@@ -15,8 +15,12 @@ class WannabeController extends BaseController
      */
     public function index()
     {
-        $response = TCocktails::all();
-        return response()->json($response);
+        $cocktails = TCocktails::all();
+        $cocktailList = [];
+        foreach($cocktails as $cocktail) {
+            $cocktailList[] = $cocktail->name;
+        }
+        return response()->json($cocktailList);
     }
 
      /**
