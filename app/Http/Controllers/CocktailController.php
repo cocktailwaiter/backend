@@ -3,8 +3,7 @@ namespace App\Http\Controllers;
 
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\Cocktail;
-use App\Model\TCocktails;
+use App\Model\Cocktail;
 
 class CocktailController extends BaseController 
 {
@@ -15,13 +14,16 @@ class CocktailController extends BaseController
      */
     public function index(Request $request)
     {
-        \Log::debug(json_encode($request->all()));
-        $cocktails = TCocktails::all();
-        $cocktailList = [];
-        foreach($cocktails as $cocktail) {
-            $cocktailList[] = $cocktail->name;
-        }
-        return response()->json($cocktailList);
+        $filters = $request->all();
+
+        $cocktails = Cocktail::with([
+            'ingredients',
+            'tags',
+            'tags.category'
+        ])
+        ->get();
+
+        return response()->json($cocktails);
     }
 
      /**
@@ -32,7 +34,7 @@ class CocktailController extends BaseController
      */
     public function store(Request $request)
     {
-        $response = Cocktail::create($request->all());
+        $response = Cocktail::get();
         return response()->json($response);
     }
  
