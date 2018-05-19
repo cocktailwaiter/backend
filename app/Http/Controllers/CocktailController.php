@@ -4,9 +4,19 @@ namespace App\Http\Controllers;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Model\Cocktail;
+use App\Services\CommentService;
+use App\Events\Item\CommentEvent;
 
-class CocktailController extends BaseController 
+class CocktailController extends BaseController
 {
+    protected $commentService;
+
+    public function __construct(
+        CommentService $commentService
+    ) {
+        $this->commentService = $commentService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,14 +24,13 @@ class CocktailController extends BaseController
      */
     public function index(Request $request)
     {
+        \Log::debug(json_encode($request->all()));
+
         $filters = $request->all();
 
-        $cocktails = Cocktail::with([
-            'ingredients',
-            'tags',
-            'tags.category'
-        ])
-        ->get();
+        $model = new Cocktail;
+        $cocktails = $model->list();
+        $comment = $this->commentService->createComment("Hello!!!");
 
         return response()->json($cocktails);
     }
@@ -37,7 +46,7 @@ class CocktailController extends BaseController
         $response = Cocktail::get();
         return response()->json($response);
     }
- 
+
     /**
      * Display the specified resource.
      *
