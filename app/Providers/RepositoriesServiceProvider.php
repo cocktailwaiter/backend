@@ -23,6 +23,7 @@ class RepositoriesServiceProvider extends ServiceProvider
     {
         // Fluent(Query Builder)
         \App::bind('App\Repositories\CommentRepositoryInterface', 'App\Repositories\Fluent\CommentRepository');
+        \App::bind('App\Repositories\TagCategoryRepositoryInterface', 'App\Repositories\Fluent\TagCategoryRepository');
     }
 }
 

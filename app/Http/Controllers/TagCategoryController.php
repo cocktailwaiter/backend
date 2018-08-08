@@ -3,16 +3,16 @@ namespace App\Http\Controllers;
 
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\Model\Cocktail;
-use App\Services\CommentService;
+use App\Model\TagCategory;
+use App\Services\TagCategoryService;
 use App\Events\Item\CommentEvent;
 
-class CocktailController extends BaseController
+class TagCategoryController extends BaseController
 {
     protected $commentService;
 
     public function __construct(
-        CommentService $commentService
+        TagCategoryService $commentService
     ) {
         $this->commentService = $commentService;
     }
@@ -37,8 +37,6 @@ class CocktailController extends BaseController
      */
     public function store(Request $request)
     {
-        $response = Cocktail::get();
-        return response()->json($response);
     }
 
     /**
@@ -49,8 +47,6 @@ class CocktailController extends BaseController
      */
     public function show($id)
     {
-        $response = Cocktail::find($id);
-        return response()->json($response);
     }
 
      /**
@@ -62,13 +58,6 @@ class CocktailController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $updates = $request->all();
-        unset($updates['q']);
-
-        $response = false;
-        $response = Cocktail::where('id', '=', $id)->update($updates);
-        if ($response === 1) $response = true;
-        return response()->json($response);
     }
 
     /**
@@ -79,9 +68,5 @@ class CocktailController extends BaseController
      */
     public function destroy($id)
     {
-        $response = false;
-        $response = Cocktail::destroy($id);
-        if ($response === 1) $response = true;
-        return response()->json($response);
     }
 }

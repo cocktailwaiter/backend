@@ -1,9 +1,10 @@
 <?php namespace App\Repositories\Fluent;
 
-use App\Repositories\CommentRepositoryInterface;
-use App\Model\Cocktail;
+use App\Repositories\TagCategoryRepositoryInterface;
+use App\Model\Tag;
+use App\Model\TagCategory;
 
-class CommentRepository extends AbstractFluent implements CommentRepositoryInterface
+class TagCategoryRepository extends AbstractFluent implements TagCategoryRepositoryInterface
 {
     protected $table = 'comments';
 
@@ -25,10 +26,10 @@ class CommentRepository extends AbstractFluent implements CommentRepositoryInter
      */
     public function createComment($comment)
     {
-        return Cocktail::with([
-            'ingredients',
+
+        return TagCategory
+        ::with([
             'tags',
-            'tags.category'
         ])
         ->get();
 /*
@@ -109,4 +110,3 @@ class CommentRepository extends AbstractFluent implements CommentRepositoryInter
             ->first();
     }
 }
-
