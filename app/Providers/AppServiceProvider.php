@@ -17,6 +17,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Services\Registrar'
         );
         $this->app->bind(
+            'App\Repositories\CocktailRepositoryInterface',
+            'App\Repositories\Fluent\CocktailRepository'
+        );
+        $this->app->bind(
             'App\Repositories\CommentRepositoryInterface',
             'App\Repositories\Fluent\CommentRepository'
         );

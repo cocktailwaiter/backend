@@ -5,7 +5,6 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Model\TagCategory;
 use App\Services\TagCategoryService;
-use App\Events\Item\CommentEvent;
 
 class TagCategoryController extends BaseController
 {

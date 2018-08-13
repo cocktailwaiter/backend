@@ -4,17 +4,16 @@ namespace App\Http\Controllers;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Model\Cocktail;
-use App\Services\CommentService;
-use App\Events\Item\CommentEvent;
+use App\Services\CocktailService;
 
 class CocktailController extends BaseController
 {
-    protected $commentService;
+    protected $cocktailService;
 
     public function __construct(
-        CommentService $commentService
+        CocktailService $cocktailService
     ) {
-        $this->commentService = $commentService;
+        $this->cocktailService = $cocktailService;
     }
 
     /**
@@ -24,7 +23,8 @@ class CocktailController extends BaseController
      */
     public function index(Request $request)
     {
-        $cocktails = $this->commentService->createComment("Hello!!!");
+        $cocktailId = $request->input('id');
+        $cocktails = $this->cocktailService->getCocktailById($cocktailId);
 
         return response()->json($cocktails);
     }

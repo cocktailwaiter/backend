@@ -1,4 +1,5 @@
-<?php namespace App\Repositories\Fluent;
+<?php
+namespace App\Repositories\Fluent;
 
 use App\Repositories\CommentRepositoryInterface;
 use App\Model\Cocktail;
@@ -31,21 +32,6 @@ class CommentRepository extends AbstractFluent implements CommentRepositoryInter
             'tags.category'
         ])
         ->get();
-/*
-        $object = array();
-        $object["item_id"] = $comment->item_id;
-        $object["user_id"] = $comment->user_id;
-        $object["body"] = $comment->body;
-        $comment_id = $this->insert($object);
-
-        $ret = $this->getCommentById($comment_id);
-        $user = app('stdClass');
-        $user->username = $comment->username;
-        $user->email = $comment->email;
-        $ret->user = $user;
-
-        return $ret;
- */
     }
 
     /**
@@ -109,4 +95,3 @@ class CommentRepository extends AbstractFluent implements CommentRepositoryInter
             ->first();
     }
 }
-
