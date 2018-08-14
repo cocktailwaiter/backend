@@ -20,14 +20,6 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\CocktailRepositoryInterface',
             'App\Repositories\Fluent\CocktailRepository'
         );
-        $this->app->bind(
-            'App\Repositories\CommentRepositoryInterface',
-            'App\Repositories\Fluent\CommentRepository'
-        );
-        $this->app->bind(
-            'App\Repositories\TagCategoryRepositoryInterface',
-            'App\Repositories\Fluent\TagCategoryRepository'
-        );
     }
 
     public function boot()
