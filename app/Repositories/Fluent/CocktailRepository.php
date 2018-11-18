@@ -6,8 +6,6 @@ use App\Model\Cocktail;
 
 class CocktailRepository extends AbstractFluent implements CocktailRepositoryInterface
 {
-    protected $table = 'cocktails';
-
     /**
      * Get a table name.
      *
@@ -15,35 +13,29 @@ class CocktailRepository extends AbstractFluent implements CocktailRepositoryInt
      */
     public function getTableName()
     {
-        return $this->table;
+        return (new Cocktail)->getTable();
     }
 
     /**
-     * Create a new cocktail.
+     * Get a cocktail by parameters
      *
-     * @param $cocktail object item_id, user_id, body, username, email
+     * @param $params array
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function createCocktail($cocktail)
+    public function searchCocktail($params)
     {
-        return Cocktail::with([
-            'ingredients',
-            'tags',
-            'tags.category'
-        ])
-        ->get();
-    }
 
-    /**
-     * Get a cocktail by cocktail id.
-     *
-     * @param $id int
-     * @return Illuminate\Database\Eloquent\Model
-     */
-    public function getCocktailById($id)
-    {
-        return \DB::table($this->getTableName())
-            ->where($this->getTableName().'.id', $id)
-            ->first();
+        $tags = value($params['tags']);
+
+        $query = Cocktail::select('cocktails.*')
+                    ->with([
+                        'tags',
+                    ])
+                    ->whereHas('tags', function ($query) use ($tags) {
+                        $query->whereIn('tags.id', $tags);
+                    })
+                    ->get();
+
+        return $query;
     }
 }

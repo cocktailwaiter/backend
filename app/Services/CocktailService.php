@@ -5,23 +5,12 @@ use App\Repositories\CocktailRepositoryInterface;
 
 class CocktailService extends Service
 {
-    protected $cocktailRepo;
+    protected $cocktailRepository;
 
     public function __construct(
-        CocktailRepositoryInterface $cocktailRepo
+        CocktailRepositoryInterface $cocktailRepository
     ) {
-        $this->cocktailRepo = $cocktailRepo;
-    }
-
-    /**
-     * Create a new cocktail.
-     *
-     * @param $cocktail object item_id, user_id, body, username, email
-     * @return Illuminate\Database\Eloquent\Model
-     */
-    public function createCocktail($cmt)
-    {
-        return $this->cocktailRepo->createCocktail($cmt);
+        $this->cocktailRepository = $cocktailRepository;
     }
 
     /**
@@ -30,8 +19,8 @@ class CocktailService extends Service
      * @param $id int
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function getCocktailById($id)
+    public function searchCocktail($params)
     {
-        return $this->cocktailRepo->getCocktailById($id);
+        return $this->cocktailRepository->searchCocktail($params);
     }
 }

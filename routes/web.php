@@ -15,19 +15,14 @@ $router->get('/', function () use ($router) {
 });
 
 
-$router->group(['prefix' => 'api/'.env('API_VERSION', 'v0')], function($router)
+$router->group(['prefix' => env('API_VERSION', 'v0')], function($router)
 {
-    resource('wannabe', 'WannabeController', $router);
-    resource('cocktail', 'CocktailController', $router);
+    resource('cocktails', 'CocktailController', $router);
     resource('tag_category', 'TagCategoryController', $router);
 });
 
 
 function resource($uri, $controller, $router)
 {
-    $router->get($uri, $controller.'@index');
-    $router->post($uri, $controller.'@store');
-     $router->get($uri.'/{id}', $controller.'@show');
-    // $router->put($uri.'/{id}', $controller.'@update');
-    // $router->delete($uri.'/{id}', $controller.'@destroy');
+    $router->get($uri, $controller.'@list');
 }

@@ -7,6 +7,8 @@ use App\Model\TagCategory;
 
 class Tag extends Model
 {
+    protected $hidden = ['pivot'];
+
     public function cocktails() {
         return $this->belongsToMany('Cocktail');
     }
