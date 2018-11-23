@@ -9,12 +9,11 @@ class Tag extends Model
 {
     protected $hidden = ['pivot'];
 
+    public function category() {
+        return $this->belongsTo(TagCategory::class, 'tag_category_id');
+    }
+
     public function cocktails() {
-        return $this->belongsToMany('Cocktail');
+        return $this->belongsToMany(Cocktail::class);
     }
-
-    public function categories() {
-        return $this->belongsTo('TagCategory');
-    }
-
 }

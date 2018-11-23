@@ -30,11 +30,13 @@ class CocktailRepository extends AbstractFluent implements CocktailRepositoryInt
         $query = Cocktail::select('cocktails.*')
                     ->with([
                         'tags',
-                    ])
-                    ->whereHas('tags', function ($query) use ($tags) {
-                        $query->whereIn('tags.id', $tags);
-                    })
-                    ->get();
+                        'tags.category',
+                    ]);
+        if (!empty($tags)) {
+            $query->whereHas('tags', function ($query) use ($tags) {
+                $query->whereIn('tags.id', $tags);
+            });
+        }
 
         return $query;
     }
