@@ -26,6 +26,16 @@ class ApiController extends BaseController
         return $response_paginate;
     }
 
+    protected function makeResponseError($validator)
+    {
+        return [
+            'error' => [
+                "code" => "403",
+                "messages" => $validator->errors()->all()
+            ]
+        ];
+    }
+
     protected function dataFormat($data, string $format): string
     {
         switch ($format) {

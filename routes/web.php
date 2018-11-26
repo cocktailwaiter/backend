@@ -17,8 +17,10 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => env('API_VERSION', 'v0')], function($router)
 {
-    resource('cocktails', 'CocktailController', $router);
-    resource('tag_category', 'TagCategoryController', $router);
+    $router->get('cocktails', 'CocktailController@list');
+    $router->get('cocktails/random', 'CocktailController@randomList');
+    $router->get('tags', 'TagController@list');
+    $router->get('tags/random', 'TagController@randomList');
 });
 
 
