@@ -7,6 +7,7 @@ use App\Services\CocktailService;
 class CocktailController extends ApiController
 {
     protected $cocktailService;
+    protected $model = 'App\Model\Cocktail';
 
     public function __construct(
         CocktailService $cocktailService
@@ -21,8 +22,7 @@ class CocktailController extends ApiController
      */
     public function list(Request $request)
     {
-        $model = 'App\Model\Cocktail';
-        $validator = $model::validation($request);
+        $validator = $this->model::validation($request);
 
         $response = [];
         if ($validator->fails()) {
@@ -35,6 +35,7 @@ class CocktailController extends ApiController
 
         $requestParams = [];
         $requestParams['tags'] = $request->input('tags', []);
+        $requestParams['seed'] = $request->input('seed');
 
         $query = $this->cocktailService->searchCocktail($requestParams);
         $paginate = $query->paginate(50, ['*'], 'page', 1);
@@ -59,6 +60,23 @@ class CocktailController extends ApiController
         }
 
         return response()->json($this->makeApiResponseFormatByPaginateQueryAndData($paginate, $cocktails));
+    }
+
+    public function randomList(Request $request)
+    {
+        $validate_options = ['seed' => 'required'];
+        $validator = $this->model::validation($request, $validate_options);
+
+        $response = [];
+        if ($validator->fails()) {
+            $response['error'] = [];
+            $response['error']["code"] = "403";
+            $response['error']["messages"] = $validator->errors()->all();
+
+            return response()->json($response);
+        }
+
+        return $this->list($request);
     }
 
     protected function tagFormat($tags_data)

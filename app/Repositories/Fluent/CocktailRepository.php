@@ -24,18 +24,15 @@ class CocktailRepository extends AbstractFluent implements CocktailRepositoryInt
      */
     public function searchCocktail($params)
     {
-
         $tags = value($params['tags']);
+        $seed = $params['seed'];
 
-        $query = Cocktail::select('cocktails.*')
-                    ->with([
-                        'tags',
-                        'tags.category',
-                    ]);
-        if (!empty($tags)) {
-            $query->whereHas('tags', function ($query) use ($tags) {
-                $query->whereIn('tags.id', $tags);
-            });
+        $query = Cocktail::
+            paginateSelect()
+            ->whereFilter($params);
+
+        if (!empty($seed)) {
+            $query = $query->fetchRandomOrder(null);
         }
 
         return $query;
