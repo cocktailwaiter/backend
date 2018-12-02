@@ -21,7 +21,7 @@ class TagController extends ApiController
             return response()->json($this->makeResponseError($validator));
         }
 
-        $query = Tag::
+        $query = $this->model::
             paginateSelect($request)
             ->whereFilter($request);
 

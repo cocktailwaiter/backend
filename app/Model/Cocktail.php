@@ -14,7 +14,7 @@ class Cocktail extends Model
         return $this->belongsToMany(Tag::class);
     }
 
-    public static function validation($request, $options = [])
+    public static function validation($request, array $options = [])
     {
         return Validator::make($request->all(), array_merge($options, [
             'tags' => 'array',
@@ -44,7 +44,7 @@ class Cocktail extends Model
         return $query;
     }
 
-    public function scopeFetchRandomOrder(Query $query, int $seed, array $params = []): Query
+    public function scopeFetchRandomOrder(Query $query, $seed, array $params = []): Query
     {
         return $query->inRandomOrder($seed);
     }

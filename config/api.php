@@ -54,5 +54,21 @@ return [
                 ]
             ]
         ]
+    ],
+    'tag' => [
+        'response' => [
+            'fields' => [
+                            'id',
+                            'name',
+                            'category',
+                            'updated_at',
+            ],
+            'field' => [
+                'category' => [
+                            'id',
+                            'name',
+                ]
+            ]
+        ]
     ]
 ];
