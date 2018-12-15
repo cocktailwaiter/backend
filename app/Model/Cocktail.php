@@ -1,14 +1,14 @@
 <?php
 namespace App\Model;
 
+use Illuminate\Database\Eloquent\Builder as Query;
 use Illuminate\Database\Eloquent\Model;
-use \Illuminate\Database\Eloquent\Builder as Query;
 use Illuminate\Support\Facades\Validator;
-use App\Model\Ingredient;
+use App\Model\ApiModel;
 use App\Model\Tag;
 use App\Model\TagCategory;
 
-class Cocktail extends Model
+class Cocktail extends ApiModel
 {
     public function tags() {
         return $this->belongsToMany(Tag::class);
@@ -18,7 +18,7 @@ class Cocktail extends Model
     {
         return Validator::make($request->all(), array_merge($options, [
             'tags' => 'array',
-            'tags.*' => 'integer',
+            'tags.*' => 'string',
         ]));
     }
 
@@ -38,9 +38,10 @@ class Cocktail extends Model
 
         if (!empty($tags)) {
             $query->whereHas('tags', function ($query) use ($tags) {
-                $query->whereIn('tags.id', $tags);
+                $query->wherePartialMatchText('tags.name', $tags);
             });
         }
+
         return $query;
     }
 
