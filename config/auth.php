@@ -56,7 +56,10 @@ return [
     */
 
     'providers' => [
-        //
+        /*
+         * GaeSupport
+         */
+        Shpasser\GaeSupportL5\GaeSupportServiceProvider::class
     ],
 
     /*
