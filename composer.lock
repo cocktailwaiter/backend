@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "766ca20581e511bc5d5f6528f6310341",
+    "content-hash": "0d43a363959f1c98234a37b47b77d536",
     "packages": [
         {
             "name": "appzcoder/lumen-routes-list",
@@ -47,6 +47,54 @@
                 "route list"
             ],
             "time": "2017-09-22T05:31:37+00:00"
+        },
+        {
+            "name": "bcncommerce/json-stream",
+            "version": "0.3.0",
+            "target-dir": "Bcn/Component/Json",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/skolodyazhnyy/json-stream.git",
+                "reference": "9ce2aa962bc881fb0222246ba2d6d6e52d1ea5aa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/skolodyazhnyy/json-stream/zipball/9ce2aa962bc881fb0222246ba2d6d6e52d1ea5aa",
+                "reference": "9ce2aa962bc881fb0222246ba2d6d6e52d1ea5aa",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "bcncommerce/stream-wrapper": "dev-master",
+                "phpunit/phpunit": "~3.7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Bcn\\Component\\Json\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sergey Kolodyazhnyy",
+                    "email": "sergey.kolodyazhnyy@gmail.com"
+                }
+            ],
+            "description": "A bundle of tools to work with JSON in PHP",
+            "keywords": [
+                "json",
+                "parser",
+                "reader",
+                "streaming",
+                "writer"
+            ],
+            "time": "2014-04-27T23:53:40+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -1479,6 +1527,51 @@
             "time": "2017-01-19T11:35:12+00:00"
         },
         {
+            "name": "nikic/php-parser",
+            "version": "v1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/PHP-Parser.git",
+                "reference": "f78af2c9c86107aa1a34cd1dbb5bbe9eeb0d9f51"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/f78af2c9c86107aa1a34cd1dbb5bbe9eeb0d9f51",
+                "reference": "f78af2c9c86107aa1a34cd1dbb5bbe9eeb0d9f51",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "lib/bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov"
+                }
+            ],
+            "description": "A PHP parser written in PHP",
+            "keywords": [
+                "parser",
+                "php"
+            ],
+            "time": "2015-09-19T14:15:08+00:00"
+        },
+        {
             "name": "paragonie/random_compat",
             "version": "v2.0.11",
             "source": {
@@ -1525,6 +1618,56 @@
                 "random"
             ],
             "time": "2017-09-27T21:40:39+00:00"
+        },
+        {
+            "name": "pimple/pimple",
+            "version": "v3.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/silexphp/Pimple.git",
+                "reference": "9e403941ef9d65d20cba7d54e29fe906db42cf32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/9e403941ef9d65d20cba7d54e29fe906db42cf32",
+                "reference": "9e403941ef9d65d20cba7d54e29fe906db42cf32",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "psr/container": "^1.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Pimple": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Pimple, a simple Dependency Injection Container",
+            "homepage": "http://pimple.sensiolabs.org",
+            "keywords": [
+                "container",
+                "dependency injection"
+            ],
+            "time": "2018-01-21T07:42:36+00:00"
         },
         {
             "name": "psr/container",
@@ -1669,6 +1812,55 @@
                 "simple-cache"
             ],
             "time": "2017-01-02T13:31:39+00:00"
+        },
+        {
+            "name": "sstalle/php7cc",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sstalle/php7cc.git",
+                "reference": "b2b8e01c42c7a4985fe25db7c154c733cb9464d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sstalle/php7cc/zipball/b2b8e01c42c7a4985fe25db7c154c733cb9464d0",
+                "reference": "b2b8e01c42c7a4985fe25db7c154c733cb9464d0",
+                "shasum": ""
+            },
+            "require": {
+                "bcncommerce/json-stream": "0.3.0",
+                "nikic/php-parser": "~1.4",
+                "php": ">=5.3.3",
+                "pimple/pimple": "~3.0",
+                "symfony/console": "~2.3 || ~3.0",
+                "symfony/finder": "~2.3 || ~3.0"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "~1.10",
+                "mikey179/vfsstream": "~1.5",
+                "phpunit/phpunit": "4.7.*"
+            },
+            "bin": [
+                "bin/php7cc"
+            ],
+            "type": "project",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sstalle\\php7cc\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A command-line tool to check PHP 5.3 - 5.6 code compatibility with PHP 7",
+            "abandoned": true,
+            "time": "2017-07-25T10:26:51+00:00"
         },
         {
             "name": "symfony/console",
