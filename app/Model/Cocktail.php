@@ -3,6 +3,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Builder as Query;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Model\ApiModel;
 use App\Model\Tag;
@@ -32,20 +33,20 @@ class Cocktail extends ApiModel
             ]);
     }
 
-    public function scopeWhereFilter(Query $query, $params): Query
+    public function scopeWhereFilter(Query $query, Request $request): Query
     {
-        $tags = $params['tags'];
-
-        if (!empty($tags)) {
-            $query->whereHas('tags', function ($query) use ($tags) {
-                $query->wherePartialMatchText('tags.name', $tags);
-            });
+        if ($request->has('tags')) {
+            $query->join('cocktail_tag', 'cocktail_tag.cocktail_id', 'cocktails.id');
+            $query->join('tags', 'tags.id', 'cocktail_tag.tag_id');
+            $query->wherePartialMatchText('tags.name', $request->input('tags'));
         }
+
+        $query->groupBy('cocktails.id');
 
         return $query;
     }
 
-    public function scopeFetchRandomOrder(Query $query, $seed, array $params = []): Query
+    public function scopeFetchRandomOrder(Query $query, $seed): Query
     {
         return $query->inRandomOrder($seed);
     }

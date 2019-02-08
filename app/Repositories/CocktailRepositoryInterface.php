@@ -1,6 +1,8 @@
 <?php
 namespace App\Repositories;
 
+use Illuminate\Http\Request;
+
 interface CocktailRepositoryInterface
 {
     /**
@@ -9,5 +11,5 @@ interface CocktailRepositoryInterface
      * @param $id int
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function searchCocktail($params);
+    public function searchCocktail(Request $request);
 }

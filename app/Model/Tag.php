@@ -40,7 +40,7 @@ class Tag extends ApiModel
         return $query;
     }
 
-    public function scopeFetchRandomOrder(Query $query, int $seed, $request): Query
+    public function scopeFetchRandomOrder(Query $query, int $seed): Query
     {
         return $query->inRandomOrder($seed);
     }
