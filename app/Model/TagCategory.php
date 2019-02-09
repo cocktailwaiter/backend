@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Model\Cocktail;
 use App\Model\Tag;
 
-class TagCategory extends Model
+class TagCategory extends ApiModel
 {
     public function cocktails() {
         return $this->belongsToMany(Cocktail::class);

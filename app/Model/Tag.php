@@ -1,14 +1,14 @@
 <?php
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder as Query;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Model\ApiModel;
 use App\Model\Cocktail;
 use App\Model\TagCategory;
 
-class Tag extends Model
+class Tag extends ApiModel
 {
     protected $hidden = ['pivot'];
 
@@ -40,7 +40,7 @@ class Tag extends Model
         return $query;
     }
 
-    public function scopeFetchRandomOrder(Query $query, int $seed, Request $request): Query
+    public function scopeFetchRandomOrder(Query $query, int $seed): Query
     {
         return $query->inRandomOrder($seed);
     }
