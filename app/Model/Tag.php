@@ -10,6 +10,9 @@ use App\Model\TagCategory;
 
 class Tag extends ApiModel
 {
+    protected $guarded = [
+        'id'
+    ];
     protected $hidden = ['pivot'];
 
     public function category() {
