@@ -39,9 +39,6 @@ class TagController extends ApiController
                     case 'category':
                         $tag[$field] = $this->tagCategoryFormat($data->$field);
                         break;
-                    case 'updated_at':
-                        $tag[$field] = $this->dataFormat($data->$field, 'datetime');
-                        break;
                     default:
                         $tag[$field] = $this->dataFormat($data->$field, 'string');
                         break;

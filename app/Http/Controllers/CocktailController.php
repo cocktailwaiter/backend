@@ -44,9 +44,6 @@ class CocktailController extends ApiController
                     case 'tags':
                         $cocktail[$field] = $this->tagFormat($data->$field);
                         break;
-                    case 'updated_at':
-                        $cocktail[$field] = $this->dataFormat($data->$field, 'datetime');
-                        break;
                     default:
                         $cocktail[$field] = $this->dataFormat($data->$field, 'string');
                         break;

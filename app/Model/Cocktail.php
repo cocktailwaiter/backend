@@ -11,6 +11,7 @@ use App\Model\TagCategory;
 
 class Cocktail extends ApiModel
 {
+    public $timestamps = false;
     protected $guarded = [
         'id'
     ];

@@ -38,7 +38,6 @@ return [
                             'id',
                             'name',
                             'tags',
-                            'updated_at',
             ],
             'field' => [
                 'tag' => [
@@ -61,7 +60,6 @@ return [
                             'id',
                             'name',
                             'category',
-                            'updated_at',
             ],
             'field' => [
                 'category' => [

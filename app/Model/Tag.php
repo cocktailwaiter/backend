@@ -10,6 +10,7 @@ use App\Model\TagCategory;
 
 class Tag extends ApiModel
 {
+    public $timestamps = false;
     protected $guarded = [
         'id'
     ];
