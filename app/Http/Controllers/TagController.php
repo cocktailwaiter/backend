@@ -63,4 +63,34 @@ class TagController extends ApiController
 
         return $response_tag_category;
     }
+
+    public function popularList(Request $request)
+    {
+        $validator = $this->model::validation($request);
+
+        if ($validator->fails()) {
+            return response()->json($this->makeResponseError($validator));
+        }
+
+        $query = Tag::fetchPopular();
+
+        $paginate = $query->paginate(5, ['*'], 'page', 1);
+
+        $tags = [];
+        foreach ($paginate as $data) {
+            $tag = [];
+            foreach (config('api.tag.response.fields') as $field) {
+                switch ($field) {
+                    case 'category':
+                        break;
+                    default:
+                        $tag[$field] = $this->dataFormat($data->$field, 'string');
+                        break;
+                }
+            }
+            $tags[] = $tag;
+        }
+
+        return response()->json($this->makeApiResponseFormatByPaginateQueryAndData($paginate, $tags));
+    }
 }

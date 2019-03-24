@@ -20,5 +20,5 @@ $router->group(['prefix' => env('API_VERSION', 'v1')], function($router)
     $router->get('cocktails', 'CocktailController@list');
     $router->get('cocktails/random', 'CocktailController@randomList');
     $router->get('tags', 'TagController@list');
-    $router->get('tags/random', 'TagController@randomList');
+    $router->get('tags/popular', 'TagController@popularList');
 });
