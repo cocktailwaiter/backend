@@ -11,6 +11,11 @@ use App\Model\TagCategory;
 
 class Cocktail extends ApiModel
 {
+    public $timestamps = false;
+    protected $guarded = [
+        'id'
+    ];
+
     public function tags() {
         return $this->belongsToMany(Tag::class);
     }
