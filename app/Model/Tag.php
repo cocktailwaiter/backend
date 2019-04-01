@@ -32,8 +32,15 @@ class Tag extends ApiModel
 
     public function scopePaginateSelect(Query $query, Request $request): Query
     {
+        $effective_tag_ids = DB::table('cocktail_tag')
+            ->distinct()
+            ->groupBy('tag_id')
+            ->pluck('tag_id')
+            ->toArray();
+
         return $query
             ->select('tags.*')
+            ->whereIn('tags.id', $effective_tag_ids)
             ->with([
                 'cocktails',
                 'category',
