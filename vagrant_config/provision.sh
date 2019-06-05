@@ -51,7 +51,5 @@ sudo mysql -u root -p${password} --connect-expired-password -e "ALTER USER 'root
 sudo mysql -u root -p${new_password} --connect-expired-password < /vagrant/vagrant_config/db/cocktailwaiter.sql
 # MySQLのインストールここまで
 
-# アプリケーション側設定
-sudo chmod 777 -R /vagrant/
+# ついで
 sudo yum install -y htop
-(crontab -l; echo "* * * * * chmod 777 -R /vagrant/ > /dev/null 2>&1") | crontab -
