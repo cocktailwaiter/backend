@@ -10,6 +10,7 @@ sudo yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 sudo yum-config-manager --enable remi-php73
 sudo yum install -y php73 php73-php-fpm php73-php-mysqlnd php73-php-opcache php73-php-xml php73-php-xmlrpc php73-php-gd php73-php-mbstring php73-php-json
 sudo ln -s /usr/bin/php73 /usr/bin/php
+sudo systemctl enable php73-php-fpm.service
 
 # composerインストール
 curl -sS https://getcomposer.org/installer | php
@@ -50,6 +51,5 @@ sudo mysql -u root -p${password} --connect-expired-password -e "ALTER USER 'root
 sudo mysql -u root -p${new_password} --connect-expired-password < /vagrant/vagrant_config/db/cocktailwaiter.sql
 # MySQLのインストールここまで
 
-# アプリケーション側設定
-sudo chmod 777 -R /vagrant/
+# ついで
 sudo yum install -y htop
