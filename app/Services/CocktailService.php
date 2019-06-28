@@ -19,8 +19,8 @@ class CocktailService extends Service
      * @param $id int
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function searchCocktail($params)
+    public function searchCocktail($request)
     {
-        return $this->cocktailRepository->searchCocktail($params);
+        return $this->cocktailRepository->searchCocktail($request);
     }
 }

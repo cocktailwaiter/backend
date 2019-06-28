@@ -33,11 +33,7 @@ class CocktailController extends ApiController
             return response()->json($response);
         }
 
-        $requestParams = [];
-        $requestParams['tags'] = $request->input('tags', []);
-        $requestParams['seed'] = $request->input('seed');
-
-        $query = $this->cocktailService->searchCocktail($requestParams);
+        $query = $this->cocktailService->searchCocktail($request);
         $paginate = $query->paginate(50, ['*'], 'page', 1);
 
         $cocktails = [];
@@ -47,9 +43,6 @@ class CocktailController extends ApiController
                 switch ($field) {
                     case 'tags':
                         $cocktail[$field] = $this->tagFormat($data->$field);
-                        break;
-                    case 'updated_at':
-                        $cocktail[$field] = $this->dataFormat($data->$field, 'datetime');
                         break;
                     default:
                         $cocktail[$field] = $this->dataFormat($data->$field, 'string');

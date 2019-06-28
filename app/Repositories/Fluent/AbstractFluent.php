@@ -92,7 +92,7 @@ abstract class AbstractFluent
         if ($createdFlag === true) {
             $params['created_at'] = $timestamp;
         }
-        $params['updated_at'] = $timestamp;
+
         return $params;
     }
     /**

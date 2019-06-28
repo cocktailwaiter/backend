@@ -8,7 +8,10 @@
         "php": ">=7.0",
         "laravel/lumen-framework": "5.5.*",
         "vlucas/phpdotenv": "^2.4",
-        "appzcoder/lumen-routes-list": "^1.0"
+        "appzcoder/lumen-routes-list": "^1.0",
+        "sstalle/php7cc": "^1.2",
+        "squizlabs/php_codesniffer": "*",
+        "phpmd/phpmd": "@stable"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

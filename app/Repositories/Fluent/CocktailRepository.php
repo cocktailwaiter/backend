@@ -3,6 +3,7 @@ namespace App\Repositories\Fluent;
 
 use App\Repositories\CocktailRepositoryInterface;
 use App\Model\Cocktail;
+use Illuminate\Http\Request;
 
 class CocktailRepository extends AbstractFluent implements CocktailRepositoryInterface
 {
@@ -19,20 +20,17 @@ class CocktailRepository extends AbstractFluent implements CocktailRepositoryInt
     /**
      * Get a cocktail by parameters
      *
-     * @param $params array
+     * @param $request Request
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function searchCocktail($params)
+    public function searchCocktail(Request $request)
     {
-        $tags = value($params['tags']);
-        $seed = $params['seed'];
-
         $query = Cocktail::
-            paginateSelect()
-            ->whereFilter($params);
+            paginateSelect($request)
+            ->whereFilter($request);
 
-        if (!empty($seed)) {
-            $query = $query->fetchRandomOrder(null);
+        if ($request->has('seed')) {
+            $query = $query->fetchRandomOrder($request->input('seed'));
         }
 
         return $query;
