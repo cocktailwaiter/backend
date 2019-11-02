@@ -12,7 +12,9 @@ def wiki_cocktail_page_collect():
 
     # wiki page of cocktail categories
     wiki_cocktail_category_page_list = [
-        'https://ja.wikipedia.org/wiki/Category:カクテル',
+        'https://ja.wikipedia.org/wiki/カクテルの一覧',
+        'https://ja.wikipedia.org/wiki/IBA公認カクテルリスト',
+        'https://ja.wikipedia.org/wiki/50音順のカクテル一覧',
         'https://ja.wikipedia.org/wiki/Category:ウイスキーベースのカクテル',
         'https://ja.wikipedia.org/wiki/Category:ウォッカベースのカクテル',
         'https://ja.wikipedia.org/wiki/Category:ジンベースのカクテル',
@@ -31,7 +33,10 @@ def wiki_cocktail_page_collect():
 
     wiki_cocktail_page_list = []
 
+    print('------- Cocktail Category List --------')
     for cocktail_category_url in wiki_cocktail_category_page_list:
+        print(cocktail_category_url)
+
         encoded_url = urllib.parse.quote(cocktail_category_url, safe='/:')
         res = requests.get(encoded_url)
         res.raise_for_status()
@@ -45,15 +50,30 @@ def wiki_cocktail_page_collect():
                 url=a_tag.get('href'))
 
             wiki_cocktail_page_list.append(cocktail_wiki_url)
+    print('-------------------------')
 
+    wiki_cocktail_page_list = list(set(wiki_cocktail_page_list))
     return wiki_cocktail_page_list
 
+
+def seikei(string):
+    string = string.replace('〜', '-')
+    string = re.sub(r'….*', "", string)
+    string = re.sub(r'\[.*\]', "", string)
+    string = (string.strip('\n')).strip()
+
+    return string
 
 """ Lets collecting cocktail information """
 cocktail_wiki_urls = wiki_cocktail_page_collect()
 
 cocktail_infos = []
+
+print('------- try cocktail sucking page --------')
 for url in cocktail_wiki_urls:
+    decoded_url = urllib.parse.unquote_to_bytes(url).decode()
+    print(decoded_url)
+
     try:
         # acquiring HTML code
         html = urllib.request.urlopen(url)
@@ -69,7 +89,10 @@ for url in cocktail_wiki_urls:
         continue
     infobox = infobox[0].tbody
 
-    cocktail_name = infobox.tr.th.text
+    if (not infobox) or (not infobox.tr) or (not infobox.tr.th) or (not infobox.tr.th.text):
+        continue
+
+    cocktail_name = seikei(infobox.tr.th.text)
 
     # acquiring cocktail information with itemprop
     itemprops = infobox.findAll('tr', {'itemprop': True})
@@ -78,25 +101,32 @@ for url in cocktail_wiki_urls:
     for itemprop in itemprops:
         # exclude for empty itemprop
         if (itemprop.th is not None) and (itemprop.td is not None):
-            tag_category_name = (itemprop.th.text).strip('\n').lstrip()
-            tag_name = (itemprop.td.text).strip('\n').lstrip()
-
-            tag_category_name = re.sub(r'\[[0-9]\]', "", tag_category_name)
-            tag_name = re.sub(r'\[[0-9]\]', "", tag_name)
+            tag_category_name = seikei(itemprop.th.text)
+            tag_names = seikei(itemprop.td.text)
 
             # exclude for empty itemprop
-            if (tag_category_name != '') and (tag_name != ''):
+            if (tag_category_name != '') and (tag_names != ''):
+
                 # add to tag-information to dict object
-                tags.append({
-                    'category_name': tag_category_name,
-                    'name': tag_name
-                })
+                if tag_category_name == '備考':
+                    tag_name = tag_names
+                    tags.append({
+                        'category_name': tag_category_name,
+                        'name': tag_name
+                    })
+                else:
+                    for tag_name in tag_names.split('、'):
+                        tags.append({
+                            'category_name': tag_category_name,
+                            'name': tag_name
+                        })
 
     # add to all-cocktail-information to cocktail-information
     cocktail_infos.append({
         'cocktail_name': cocktail_name,
         'tags': tags
     })
+print('------------------------------------------')
 
 # output the JSON on `cocktail_tag.json`
 with open('cocktail_tag.json', 'w') as file:
