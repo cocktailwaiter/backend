@@ -11,11 +11,6 @@ use App\Model\TagCategory;
 
 class Cocktail extends ApiModel
 {
-    public $timestamps = false;
-    protected $guarded = [
-        'id'
-    ];
-
     public function tags() {
         return $this->belongsToMany(Tag::class);
     }
@@ -28,7 +23,7 @@ class Cocktail extends ApiModel
         ]));
     }
 
-    public function scopePaginateSelect(Query $query): Query
+    public function scopePaginateSelect(Query $query, Request $request): Query
     {
         return $query
             ->select('cocktails.*')
@@ -49,10 +44,5 @@ class Cocktail extends ApiModel
         $query->groupBy('cocktails.id');
 
         return $query;
-    }
-
-    public function scopeFetchRandomOrder(Query $query, $seed): Query
-    {
-        return $query->inRandomOrder($seed);
     }
 }

@@ -23,13 +23,15 @@ class CocktailRepository extends AbstractFluent implements CocktailRepositoryInt
      * @param $request Request
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function searchCocktail(Request $request)
+    public function searchCocktail(Request $request, $id = null)
     {
         $query = Cocktail::
             paginateSelect($request)
             ->whereFilter($request);
 
-        if ($request->has('seed')) {
+        if (!is_null($id)) {
+            $query->find($id);
+        } elseif ($request->has('seed')) {
             $query = $query->fetchRandomOrder($request->input('seed'));
         }
 

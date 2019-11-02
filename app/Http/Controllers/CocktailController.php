@@ -15,6 +15,41 @@ class CocktailController extends ApiController
         $this->cocktailService = $cocktailService;
     }
 
+    public function index(Request $request, $id)
+    {
+        $validator = $this->model::validation($request);
+
+        $response = [];
+        if ($validator->fails()) {
+            $response['error'] = [];
+            $response['error']["code"] = "403";
+            $response['error']["messages"] = $validator->errors()->all();
+
+            return response()->json($response);
+        }
+
+        $query = $this->cocktailService->searchCocktail($request, $id);
+        $paginate = $query->paginate(1, ['*'], 'page', 1);
+
+        $cocktails = [];
+        foreach ($paginate as $data) {
+            $cocktail = [];
+            foreach (config('api.cocktail.response.fields') as $field) {
+                switch ($field) {
+                    case 'tags':
+                        $cocktail[$field] = $this->tagFormat($data->$field);
+                        break;
+                    default:
+                        $cocktail[$field] = $this->dataFormat($data->$field, 'string');
+                        break;
+                }
+            }
+            $cocktails[] = $cocktail;
+        }
+
+        return response()->json($this->makeApiResponseFormatByPaginateQueryAndData($paginate, $cocktails[0]));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -58,6 +93,7 @@ class CocktailController extends ApiController
     public function randomList(Request $request)
     {
         $validate_options = ['seed' => 'required'];
+        $validate_options = [];
         $validator = $this->model::validation($request, $validate_options);
 
         $response = [];

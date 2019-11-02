@@ -11,5 +11,5 @@ interface CocktailRepositoryInterface
      * @param $id int
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function searchCocktail(Request $request);
+    public function searchCocktail(Request $request, $id = null);
 }

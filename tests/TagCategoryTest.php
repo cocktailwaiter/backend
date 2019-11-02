@@ -3,9 +3,9 @@
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class CocktailTest extends TestCase
+class TagCategoryTest extends TestCase
 {
-    protected static $endpoint = '/v1/cocktails';
+    protected static $endpoint = '/v1/tag_categories';
 
     public function testGetSuccess()
     {
