@@ -47,8 +47,6 @@ class TagCategoryController extends ApiController
             $tag_category_categories[] = $tag_category;
         }
 
-        var_dump($tag_category_categories);
-
         return response()->json($this->makeApiResponseFormatByPaginateQueryAndData($paginate, $tag_category_categories));
     }
 

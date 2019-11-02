@@ -10,6 +10,10 @@ class ApiModel extends Model
 {
     public $timestamps = false;
 
+    protected $guarded = [
+        'id'
+    ];
+
     public static function validation(Request $request, array $options = [])
     {
         return Validator::make($request->all(), array_merge($options, []));
@@ -25,6 +29,10 @@ class ApiModel extends Model
         return $query;
     }
 
+    public function scopeFetchRandomOrder(Query $query, $seed): Query
+    {
+        return $query->inRandomOrder($seed);
+    }
     /**
      * テキスト用カスタム検索条件作成
      */

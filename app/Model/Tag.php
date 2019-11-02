@@ -11,23 +11,16 @@ use App\Model\TagCategory;
 
 class Tag extends ApiModel
 {
-    public $timestamps = false;
-    protected $guarded = [
-        'id'
-    ];
     protected $hidden = ['pivot'];
 
-    public function category() {
+    public function category()
+    {
         return $this->belongsTo(TagCategory::class, 'tag_category_id');
     }
 
-    public function cocktails() {
-        return $this->belongsToMany(Cocktail::class);
-    }
-
-    public static function validation(Request $request, array $options = [])
+    public function cocktails()
     {
-        return Validator::make($request->all(), array_merge($options, []));
+        return $this->belongsToMany(Cocktail::class);
     }
 
     public function scopePaginateSelect(Query $query, Request $request): Query
@@ -45,16 +38,6 @@ class Tag extends ApiModel
                 'cocktails',
                 'category',
             ]);
-    }
-
-    public function scopeWhereFilter(Query $query, Request $request): Query
-    {
-        return $query;
-    }
-
-    public function scopeFetchRandomOrder(Query $query, int $seed): Query
-    {
-        return $query->inRandomOrder($seed);
     }
 
     public function scopeFetchPopular()
