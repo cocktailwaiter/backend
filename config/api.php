@@ -68,5 +68,13 @@ return [
                 ]
             ]
         ]
+    ],
+    'tag_category' => [
+        'response' => [
+            'fields' => [
+                            'id',
+                            'name',
+            ]
+        ]
     ]
 ];

@@ -21,4 +21,6 @@ $router->group(['prefix' => env('API_VERSION', 'v1')], function($router)
     $router->get('cocktails/random', 'CocktailController@randomList');
     $router->get('tags', 'TagController@list');
     $router->get('tags/popular', 'TagController@popularList');
+    $router->get('tag_categories', 'TagCategoryController@list');
+    $router->get('tag_categories/popular', 'TagCategoryController@popularList');
 });
