@@ -21,6 +21,11 @@ class TagController extends ApiController
             return response()->json($this->makeResponseError($validator));
         }
 
+        $logging = new \App\Model\History;
+        $logging->endpoint = $request->url();
+        $logging->parameter = json_encode($request->query());
+        $logging->save();
+
         $query = $this->model::
             paginateSelect($request)
             ->whereFilter($request);
@@ -71,6 +76,11 @@ class TagController extends ApiController
         if ($validator->fails()) {
             return response()->json($this->makeResponseError($validator));
         }
+
+        $logging = new \App\Model\History;
+        $logging->endpoint = $request->url();
+        $logging->parameter = json_encode($request->query());
+        $logging->save();
 
         $query = Tag::fetchPopular();
 
