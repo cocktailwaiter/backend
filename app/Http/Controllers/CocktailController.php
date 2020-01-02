@@ -28,10 +28,7 @@ class CocktailController extends ApiController
             return response()->json($response);
         }
 
-        $logging = new \App\Model\History;
-        $logging->endpoint = $request->url();
-        $logging->parameter = json_encode($request->query());
-        $logging->save();
+        \App\Model\History::requestLog($request);
 
         $query = $this->cocktailService->searchCocktail($request, $id);
         $paginate = $query->paginate(1, ['*'], 'page', 1);
@@ -73,10 +70,7 @@ class CocktailController extends ApiController
             return response()->json($response);
         }
 
-        $logging = new \App\Model\History;
-        $logging->endpoint = $request->url();
-        $logging->parameter = json_encode($request->query());
-        $logging->save();
+        \App\Model\History::requestLog($request);
 
         $query = $this->cocktailService->searchCocktail($request);
         $paginate = $query->paginate(50, ['*'], 'page', 1);
@@ -115,10 +109,7 @@ class CocktailController extends ApiController
             return response()->json($response);
         }
 
-        $logging = new \App\Model\History;
-        $logging->endpoint = $request->url();
-        $logging->parameter = json_encode($request->query());
-        $logging->save();
+        \App\Model\History::requestLog($request);
 
         return $this->list($request);
     }
