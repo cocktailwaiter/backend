@@ -8,6 +8,8 @@ use DB;
 
 class TagCategory extends ApiModel
 {
+    const TAG_CATEGORY_ID_NOTE = 14;
+
     public function cocktails()
     {
         return $this->belongsToMany(Cocktail::class);
