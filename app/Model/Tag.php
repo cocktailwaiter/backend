@@ -2,6 +2,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Builder as Query;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use DB;
@@ -11,6 +12,9 @@ use App\Model\TagCategory;
 
 class Tag extends ApiModel
 {
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
     protected $hidden = ['pivot'];
 
     public function category()
@@ -33,6 +37,7 @@ class Tag extends ApiModel
 
         return $query
             ->select('tags.*')
+            ->where('tags.tag_category_id', '!=', TagCategory::TAG_CATEGORY_ID_NOTE)
             ->whereIn('tags.id', $effective_tag_ids)
             ->with([
                 'cocktails',

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Tag;
+use Carbon\Carbon;
 
 class TagController extends ApiController
 {
@@ -21,10 +22,10 @@ class TagController extends ApiController
             return response()->json($this->makeResponseError($validator));
         }
 
-        $logging = new \App\Model\History;
-        $logging->endpoint = $request->url();
-        $logging->parameter = json_encode($request->query());
-        $logging->save();
+        \App\Model\History::requestLog($request);
+
+        $seed = (Carbon::now())->getTimestamp();
+        $request['seed'] = $seed;
 
         $query = $this->model::
             paginateSelect($request)
@@ -77,10 +78,7 @@ class TagController extends ApiController
             return response()->json($this->makeResponseError($validator));
         }
 
-        $logging = new \App\Model\History;
-        $logging->endpoint = $request->url();
-        $logging->parameter = json_encode($request->query());
-        $logging->save();
+        \App\Model\History::requestLog($request);
 
         $query = Tag::fetchPopular();
 
