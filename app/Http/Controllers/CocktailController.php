@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\CocktailService;
+use Carbon\Carbon;
 
 class CocktailController extends ApiController
 {
@@ -71,6 +72,9 @@ class CocktailController extends ApiController
         }
 
         \App\Model\History::requestLog($request);
+
+        $seed = (Carbon::now())->getTimestamp();
+        $request['seed'] = $seed;
 
         $query = $this->cocktailService->searchCocktail($request);
         $paginate = $query->paginate(50, ['*'], 'page', 1);

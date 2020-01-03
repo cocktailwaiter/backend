@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Tag;
+use Carbon\Carbon;
 
 class TagController extends ApiController
 {
@@ -22,6 +23,9 @@ class TagController extends ApiController
         }
 
         \App\Model\History::requestLog($request);
+
+        $seed = (Carbon::now())->getTimestamp();
+        $request['seed'] = $seed;
 
         $query = $this->model::
             paginateSelect($request)
