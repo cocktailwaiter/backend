@@ -8,6 +8,7 @@ use DB;
 
 class TagCategory extends ApiModel
 {
+    const TAG_CATEGORY_ID_ALCOHOL_CONTENT = 5;
     const TAG_CATEGORY_ID_NOTE = 14;
 
     public function cocktails()
