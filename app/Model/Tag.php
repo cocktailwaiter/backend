@@ -37,6 +37,7 @@ class Tag extends ApiModel
 
         return $query
             ->select('tags.*')
+            ->where('tags.tag_category_id', '!=', TagCategory::TAG_CATEGORY_ID_ALCOHOL_CONTENT)
             ->where('tags.tag_category_id', '!=', TagCategory::TAG_CATEGORY_ID_NOTE)
             ->whereIn('tags.id', $effective_tag_ids)
             ->with([
