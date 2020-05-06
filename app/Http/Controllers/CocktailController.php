@@ -71,7 +71,8 @@ class CocktailController extends ApiController
             return response()->json($response);
         }
 
-        \App\Model\History::requestLog($request);
+        $user = \App\Model\User::getUserBySession($request->session);
+        \App\Model\History::requestLog($request, $user);
 
         $seed = (Carbon::now())->getTimestamp();
         $request['seed'] = $seed;
@@ -113,7 +114,8 @@ class CocktailController extends ApiController
             return response()->json($response);
         }
 
-        \App\Model\History::requestLog($request);
+        $user = \App\Model\User::getUserBySession($request->session);
+        \App\Model\History::requestLog($request, $user);
 
         return $this->list($request);
     }
