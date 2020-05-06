@@ -22,7 +22,8 @@ class TagController extends ApiController
             return response()->json($this->makeResponseError($validator));
         }
 
-        \App\Model\History::requestLog($request);
+        $user = \App\Model\User::getUserBySession($request->session);
+        \App\Model\History::requestLog($request, $user);
 
         $seed = (Carbon::now())->getTimestamp();
         $request['seed'] = $seed;
@@ -78,7 +79,8 @@ class TagController extends ApiController
             return response()->json($this->makeResponseError($validator));
         }
 
-        \App\Model\History::requestLog($request);
+        $user = \App\Model\User::getUserBySession($request->session);
+        \App\Model\History::requestLog($request, $user);
 
         $query = Tag::fetchPopular();
 

@@ -11,9 +11,12 @@ class History extends Model
         'id'
     ];
 
-    public static function requestLog(Request $request)
+    public static function requestLog(Request $request, \App\Model\User $user = null)
     {
         $logging = new self;
+        if ($user) {
+            $logging->user_id = $user->id;
+        }
         $logging->endpoint = $request->url();
         $logging->parameter = json_encode($request->query());
         $logging->user_agent = $request->header('User-Agent');
